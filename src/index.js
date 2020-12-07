@@ -33,12 +33,11 @@ function onSearch(e) {
     loadMoreBtn.show()
     imagesApiService.resetPage()
 
+     
     fetchImages()
+
 }
 
-// function scrollBy() {
-//   window.scrollBy(500, 0);
-// }
 
 function onLoadMore() {
     fetchImages()
@@ -54,11 +53,16 @@ function onLoadMore() {
 }
 
 function fetchImages() {
-    loadMoreBtn.disable()
+    loadMoreBtn.disable() 
     imagesApiService.fetchImages().then(hits => {
-        loadMoreBtn.enable(),
-        appendImagesMarkup(hits)
-    })
+        if (hits.length === 0) {
+            loadMoreBtn.hide()
+        } else {
+            loadMoreBtn.enable(),
+            appendImagesMarkup(hits)
+        }
+        
+    })  
 }
 
 function appendImagesMarkup(hits) {
